@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <h1>Shopping Cart</h1>
+    <ul>
+        <% cart.items.forEach(item => { %>
+            <li>
+                <%= item.product.name %> - <%= item.quantity %> x <%= item.product.price %>
+                <form action="/api/carts/<%= cart._id %>/product/<%= item.product._id %>" method="post">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit">Remove</button>
+                </form>
+            </li>
+        <% }); %>
+    </ul>
+    <h2>Total: <%= cart.total %></h2>
+    <form action="/checkout" method="get">
+        <button type="submit">Checkout</button>
+    </form>
+</body>
+</html>
